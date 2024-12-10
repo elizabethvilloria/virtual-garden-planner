@@ -18,6 +18,6 @@ const GardenGrid = ({ grid, onPlantPlacement }) => {
       </div>
     );
   };
-  
+g  
 
 export default GardenGrid;
