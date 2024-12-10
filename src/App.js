@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import GardenGrid from './components/GardenGrid';
+import PlantSelector from './components/PlantSelector';
 
-function App() {
+const App = () => {
+  const [selectedPlant, setSelectedPlant] = useState(null);
+  const [grid, setGrid] = useState(
+    Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => null))
+  );
+
+  const handleSelectPlant = (plant) => {
+    setSelectedPlant(plant);
+  };
+
+  const handlePlantPlacement = (rowIndex, colIndex) => {
+    if (selectedPlant) {
+      const newGrid = grid.map((row, rIndex) =>
+        row.map((cell, cIndex) =>
+          rIndex === rowIndex && cIndex === colIndex ? selectedPlant : cell
+        )
+      );
+      setGrid(newGrid);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <PlantSelector onSelectPlant={handleSelectPlant} />
+      <GardenGrid
+        grid={grid}
+        onPlantPlacement={handlePlantPlacement}
+      />
     </div>
   );
-}
+};
 
 export default App;
