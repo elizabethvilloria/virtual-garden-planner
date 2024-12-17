@@ -1,9 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './GardenGrid.css';
 
+class GardenGridErrorBoundary extends React.Component {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <div className="error-message">Error loading garden grid</div>;
+    }
+    return this.props.children;
+  }
+}
+
 const GardenGrid = ({ grid, onPlantPlacement }) => {
-    return (
+  return (
+    <GardenGridErrorBoundary>
       <div className="garden-grid">
         {grid.map((row, rowIndex) =>
           row.map((cell, colIndex) => (
@@ -17,12 +32,8 @@ const GardenGrid = ({ grid, onPlantPlacement }) => {
           ))
         )}
       </div>
-    );
-  };
-
-GardenGrid.propTypes = {
-  grid: PropTypes.arrayOf(PropTypes.array).isRequired,
-  onPlantPlacement: PropTypes.func.isRequired,
+    </GardenGridErrorBoundary>
+  );
 };
 
 export default GardenGrid;
