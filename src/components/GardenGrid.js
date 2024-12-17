@@ -1,30 +1,14 @@
 import React from 'react';
 import './GardenGrid.css';
 
-class GardenGridErrorBoundary extends React.Component {
-  state = { hasError: false };
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return <div className="error-message">Error loading garden grid</div>;
-    }
-    return this.props.children;
-  }
-}
-
 const GardenGrid = ({ grid, onPlantPlacement }) => {
-  return (
-    <GardenGridErrorBoundary>
+    return (
       <div className="garden-grid">
         {grid.map((row, rowIndex) =>
           row.map((cell, colIndex) => (
             <div
               key={`${rowIndex}-${colIndex}`}
-              className="grid-cell"
+              className={`grid-cell ${cell ? 'occupied' : 'empty'}`}
               onClick={() => onPlantPlacement(rowIndex, colIndex)}
             >
               {cell}
@@ -32,8 +16,8 @@ const GardenGrid = ({ grid, onPlantPlacement }) => {
           ))
         )}
       </div>
-    </GardenGridErrorBoundary>
-  );
-};
+    );
+  };
+g  
 
 export default GardenGrid;
