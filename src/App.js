@@ -26,6 +26,9 @@ const App = () => {
   return (
     <div>
       <PlantSelector onSelectPlant={handleSelectPlant} />
+      <div className="selected-plant">
+        Currently selected: {selectedPlant || '(None)'}
+      </div>
       <GardenGrid
         grid={grid}
         onPlantPlacement={handlePlantPlacement}
