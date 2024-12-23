@@ -1,0 +1,15 @@
+.plant-button {
+    font-size: 24px;
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid #a5d6a7;
+    border-radius: 50%;
+    background: white;
+    transition: all 0.2s ease;
+  }
+  
+  .plant-button:hover {
+    transform: translateY(-2px);
+    background: #e8f5e9;
+    cursor: pointer;
+  }
