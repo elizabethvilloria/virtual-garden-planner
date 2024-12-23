@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PlantSelector = ({ onSelectPlant }) => {
-  const plants = ['🌼', '🌳', '🌵'];
+  const plants = ['🌼', '🌳', '🌵', '🌺', '🌻', '🍄', '🌹'];
 
   return (
     <div>
