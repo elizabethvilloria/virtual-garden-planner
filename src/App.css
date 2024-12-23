@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.garden-app {
+  text-align: center;
+  padding: 20px;
+}
+
+.garden-app h1 {
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
+.selected-plant {
+  margin: 15px 0;
+  font-size: 18px;
+  color: #4caf50;
+}

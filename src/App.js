@@ -24,7 +24,8 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="garden-app">
+      <h1>🌿 My Tiny Garden 🌿</h1>
       <PlantSelector onSelectPlant={handleSelectPlant} />
       <div className="selected-plant">
         Currently selected: {selectedPlant || '(None)'}
