@@ -39,16 +39,25 @@
 
 .garden-app {
   text-align: center;
-  padding: 20px;
+  padding: 40px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .garden-app h1 {
   color: #2e7d32;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .selected-plant {
-  margin: 15px 0;
-  font-size: 18px;
+  margin: 20px 0;
+  font-size: 1.2rem;
   color: #4caf50;
+  padding: 10px;
+  background-color: #e8f5e9;
+  border-radius: 8px;
+  display: inline-block;
 }
