@@ -43,6 +43,9 @@
   background-color: #f8f9fa;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  transition: all 0.3s ease-in-out;
 }
 
 .garden-app h1 {
@@ -60,4 +63,24 @@
   background-color: #e8f5e9;
   border-radius: 8px;
   display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .garden-app {
+    padding: 20px;
+  }
+  
+  .garden-app h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .garden-app {
+    padding: 15px;
+  }
+  
+  .garden-app h1 {
+    font-size: 1.8rem;
+  }
 }
