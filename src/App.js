@@ -7,6 +7,7 @@ const App = () => {
   const [grid, setGrid] = useState(
     Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => null))
   );
+  const [darkMode, setDarkMode] = useState(false);
 
   const handleSelectPlant = (plant) => {
     setSelectedPlant(plant);
@@ -24,8 +25,15 @@ const App = () => {
   };
 
   return (
-    <div className="garden-app">
+    <div className={`garden-app ${darkMode ? 'dark-mode' : ''}`}>
       <h1>🌿 My Tiny Garden 🌿</h1>
+      <button 
+        className="garden-button"
+        onClick={() => setDarkMode(!darkMode)}
+        style={{ position: 'absolute', top: '20px', right: '20px' }}
+      >
+        {darkMode ? '☀️ Light' : '🌙 Dark'}
+      </button>
       <PlantSelector onSelectPlant={handleSelectPlant} />
       <div className="selected-plant">
         Currently selected: {selectedPlant || '(None)'}
