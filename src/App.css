@@ -271,3 +271,43 @@
 .plant-cell.planted:hover::before {
   display: none;
 }
+
+.garden-app.season-spring {
+  background: linear-gradient(to bottom, #e1f5fe, #f8f9fa);
+}
+
+.garden-app.season-summer {
+  background: linear-gradient(to bottom, #fff3e0, #f8f9fa);
+}
+
+.garden-app.season-autumn {
+  background: linear-gradient(to bottom, #fff3e0, #ffccbc);
+}
+
+.garden-app.season-winter {
+  background: linear-gradient(to bottom, #e3f2fd, #fff);
+  position: relative;
+  overflow: hidden;
+}
+
+.season-winter::before {
+  content: '❄️';
+  position: absolute;
+  animation: snowfall 10s linear infinite;
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) translateX(20px) rotate(360deg);
+    opacity: 0;
+  }
+}

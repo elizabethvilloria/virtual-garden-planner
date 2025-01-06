@@ -10,12 +10,20 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [tooltip, setTooltip] = useState({ show: false, text: '', x: 0, y: 0 });
   const [weather, setWeather] = useState({ temp: null, condition: 'sunny' });
+  const [season, setSeason] = useState('spring');
 
   useEffect(() => {
     const conditions = ['sunny', 'rainy', 'cloudy'];
     const randomCondition = conditions[Math.floor(Math.random() * conditions.length)];
     const randomTemp = Math.floor(Math.random() * (30 - 15) + 15);
     setWeather({ temp: randomTemp, condition: randomCondition });
+  }, []);
+
+  useEffect(() => {
+    const seasons = ['spring', 'summer', 'autumn', 'winter'];
+    const currentMonth = new Date().getMonth();
+    const currentSeason = seasons[Math.floor(currentMonth / 3) % 4];
+    setSeason(currentSeason);
   }, []);
 
   const handleSelectPlant = (plant) => {
@@ -34,7 +42,7 @@ const App = () => {
   };
 
   return (
-    <div className={`garden-app ${darkMode ? 'dark-mode' : ''}`}>
+    <div className={`garden-app ${darkMode ? 'dark-mode' : ''} season-${season}`}>
       <h1>🌿 My Tiny Garden 🌿</h1>
       <button 
         className="garden-button"
