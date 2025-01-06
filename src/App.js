@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GardenGrid from './components/GardenGrid';
 import PlantSelector from './components/PlantSelector';
 
@@ -9,6 +9,14 @@ const App = () => {
   );
   const [darkMode, setDarkMode] = useState(false);
   const [tooltip, setTooltip] = useState({ show: false, text: '', x: 0, y: 0 });
+  const [weather, setWeather] = useState({ temp: null, condition: 'sunny' });
+
+  useEffect(() => {
+    const conditions = ['sunny', 'rainy', 'cloudy'];
+    const randomCondition = conditions[Math.floor(Math.random() * conditions.length)];
+    const randomTemp = Math.floor(Math.random() * (30 - 15) + 15);
+    setWeather({ temp: randomTemp, condition: randomCondition });
+  }, []);
 
   const handleSelectPlant = (plant) => {
     setSelectedPlant(plant);
@@ -35,6 +43,16 @@ const App = () => {
       >
         {darkMode ? '☀️ Light' : '🌙 Dark'}
       </button>
+      <div className="weather-widget">
+        <span className="weather-icon">
+          {weather.condition === 'sunny' ? '☀️' : 
+           weather.condition === 'rainy' ? '🌧️' : '☁️'}
+        </span>
+        <span>
+          {weather.temp}°C - {weather.condition === 'sunny' ? 'Water your plants!' :
+           weather.condition === 'rainy' ? 'Perfect growing weather!' : 'Moderate watering needed'}
+        </span>
+      </div>
       <PlantSelector onSelectPlant={handleSelectPlant} />
       <div className="selected-plant">
         Currently selected: {selectedPlant || '(None)'}

@@ -212,3 +212,26 @@
   background: rgba(45, 45, 45, 0.95);
   color: #ffffff;
 }
+
+.weather-widget {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.dark-mode .weather-widget {
+  background: rgba(45, 45, 45, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.weather-icon {
+  font-size: 1.5rem;
+}
