@@ -8,6 +8,7 @@ const App = () => {
     Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => null))
   );
   const [darkMode, setDarkMode] = useState(false);
+  const [tooltip, setTooltip] = useState({ show: false, text: '', x: 0, y: 0 });
 
   const handleSelectPlant = (plant) => {
     setSelectedPlant(plant);
@@ -41,7 +42,28 @@ const App = () => {
       <GardenGrid
         grid={grid}
         onPlantPlacement={handlePlantPlacement}
+        onCellHover={(plant, event) => {
+          if (plant) {
+            setTooltip({
+              show: true,
+              text: `${plant} - Perfect for your garden!`,
+              x: event.clientX + 10,
+              y: event.clientY + 10
+            });
+          } else {
+            setTooltip({ ...tooltip, show: false });
+          }
+        }}
+        onCellLeave={() => setTooltip({ ...tooltip, show: false })}
       />
+      {tooltip.show && (
+        <div 
+          className="plant-tooltip"
+          style={{ left: tooltip.x, top: tooltip.y }}
+        >
+          {tooltip.text}
+        </div>
+      )}
     </div>
   );
 };

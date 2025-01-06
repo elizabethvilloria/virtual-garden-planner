@@ -194,3 +194,21 @@
   background-color: #1e4620;
   color: #7bb97e;
 }
+
+.plant-tooltip {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 0.9rem;
+  z-index: 100;
+  max-width: 200px;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.dark-mode .plant-tooltip {
+  background: rgba(45, 45, 45, 0.95);
+  color: #ffffff;
+}
