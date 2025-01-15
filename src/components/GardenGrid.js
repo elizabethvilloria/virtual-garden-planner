@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GardenGrid.css';
 
-const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, isLoading }) => {
+const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCellLeave, isLoading }) => {
   if (isLoading) {
     return <div className="loading-state">Loading garden grid...</div>;
   }
@@ -41,6 +41,8 @@ GardenGrid.propTypes = {
   grid: PropTypes.arrayOf(PropTypes.array).isRequired,
   onPlantPlacement: PropTypes.func.isRequired,
   onPlantRemoval: PropTypes.func.isRequired,
+  onCellHover: PropTypes.func.isRequired,
+  onCellLeave: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
 };
 
