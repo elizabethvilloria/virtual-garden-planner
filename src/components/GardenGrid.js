@@ -23,7 +23,7 @@ const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCel
         row.map((cell, colIndex) => (
           <div
             key={`${rowIndex}-${colIndex}`}
-            className={`grid-cell ${cell ? 'planted' : ''}`}
+            className={`plant-cell ${cell ? 'planted' : ''}`}
             onClick={(e) => handleCellClick(e, rowIndex, colIndex)}
             onContextMenu={(e) => handleCellClick(e, rowIndex, colIndex)}
             onMouseEnter={(e) => onCellHover(cell, e)}
