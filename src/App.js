@@ -15,6 +15,8 @@ const App = () => {
     totalPlants: 0,
     plantTypes: {}
   });
+  const [lastRemoved, setLastRemoved] = useState(null);
+  const [lastRemovedPosition, setLastRemovedPosition] = useState(null);
 
   useEffect(() => {
     const conditions = ['sunny', 'rainy', 'cloudy'];
@@ -53,6 +55,52 @@ const App = () => {
     }
   };
 
+  const handlePlantRemoval = (rowIndex, colIndex) => {
+    const plant = grid[rowIndex][colIndex];
+    if (plant) {
+      setLastRemoved(plant);
+      setLastRemovedPosition({ row: rowIndex, col: colIndex });
+      
+      const newGrid = grid.map((row, rIndex) =>
+        row.map((cell, cIndex) =>
+          rIndex === rowIndex && cIndex === colIndex ? null : cell
+        )
+      );
+      setGrid(newGrid);
+      
+      setPlantStats(prev => ({
+        totalPlants: prev.totalPlants - 1,
+        plantTypes: {
+          ...prev.plantTypes,
+          [plant]: prev.plantTypes[plant] - 1
+        }
+      }));
+    }
+  };
+
+  const handleUndo = () => {
+    if (lastRemoved && lastRemovedPosition) {
+      const { row, col } = lastRemovedPosition;
+      const newGrid = grid.map((r, rIndex) =>
+        r.map((cell, cIndex) =>
+          rIndex === row && cIndex === col ? lastRemoved : cell
+        )
+      );
+      setGrid(newGrid);
+      
+      setPlantStats(prev => ({
+        totalPlants: prev.totalPlants + 1,
+        plantTypes: {
+          ...prev.plantTypes,
+          [lastRemoved]: (prev.plantTypes[lastRemoved] || 0) + 1
+        }
+      }));
+      
+      setLastRemoved(null);
+      setLastRemovedPosition(null);
+    }
+  };
+
   return (
     <div className={`garden-app ${darkMode ? 'dark-mode' : ''} season-${season}`}>
       <h1>🌿 My Tiny Garden 🌿</h1>
@@ -88,14 +136,24 @@ const App = () => {
           ))}
         </div>
       </div>
+      {lastRemoved && (
+        <button 
+          className="garden-button"
+          onClick={handleUndo}
+          style={{ marginTop: '10px' }}
+        >
+          ↩️ Undo Remove {lastRemoved}
+        </button>
+      )}
       <GardenGrid
         grid={grid}
         onPlantPlacement={handlePlantPlacement}
+        onPlantRemoval={handlePlantRemoval}
         onCellHover={(plant, event) => {
           if (plant) {
             setTooltip({
               show: true,
-              text: `${plant} - Perfect for your garden!`,
+              text: `${plant} - Right-click to remove`,
               x: event.clientX + 10,
               y: event.clientY + 10
             });
