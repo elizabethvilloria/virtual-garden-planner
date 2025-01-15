@@ -11,6 +11,10 @@ const App = () => {
   const [tooltip, setTooltip] = useState({ show: false, text: '', x: 0, y: 0 });
   const [weather, setWeather] = useState({ temp: null, condition: 'sunny' });
   const [season, setSeason] = useState('spring');
+  const [plantStats, setPlantStats] = useState({
+    totalPlants: 0,
+    plantTypes: {}
+  });
 
   useEffect(() => {
     const conditions = ['sunny', 'rainy', 'cloudy'];
@@ -38,6 +42,14 @@ const App = () => {
         )
       );
       setGrid(newGrid);
+      
+      setPlantStats(prev => ({
+        totalPlants: prev.totalPlants + 1,
+        plantTypes: {
+          ...prev.plantTypes,
+          [selectedPlant]: (prev.plantTypes[selectedPlant] || 0) + 1
+        }
+      }));
     }
   };
 
@@ -64,6 +76,17 @@ const App = () => {
       <PlantSelector onSelectPlant={handleSelectPlant} />
       <div className="selected-plant">
         Currently selected: {selectedPlant || '(None)'}
+      </div>
+      <div className="stats-container">
+        <h3>Garden Statistics</h3>
+        <p>Total Plants: {plantStats.totalPlants}</p>
+        <div className="plant-counts">
+          {Object.entries(plantStats.plantTypes).map(([plant, count]) => (
+            <span key={plant} className="plant-stat">
+              {plant}: {count}
+            </span>
+          ))}
+        </div>
       </div>
       <GardenGrid
         grid={grid}

@@ -311,3 +311,35 @@
     opacity: 0;
   }
 }
+
+.stats-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .stats-container {
+  background: rgba(45, 45, 45, 0.9);
+}
+
+.plant-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.plant-stat {
+  background: #e8f5e9;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+.dark-mode .plant-stat {
+  background: #1e4620;
+}
