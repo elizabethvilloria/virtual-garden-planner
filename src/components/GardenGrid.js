@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GardenGrid.css';
 
-const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCellLeave, isLoading }) => {
+const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCellLeave, isLoading, season }) => {
   if (isLoading) {
     return <div className="loading-state">Loading garden grid...</div>;
   }
@@ -14,6 +14,23 @@ const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCel
       onPlantRemoval(rowIndex, colIndex);
     } else if (e.type === 'click') {
       onPlantPlacement(rowIndex, colIndex);
+    }
+  };
+
+  const getPlantEmoji = (cell, season) => {
+    if (!cell) return '';
+    
+    switch(season) {
+      case 'spring':
+        return '🌱';
+      case 'summer':
+        return '🌿';
+      case 'autumn':
+        return '🍂';
+      case 'winter':
+        return '❄️';
+      default:
+        return '🌿';
     }
   };
 
@@ -29,7 +46,7 @@ const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCel
             onMouseEnter={(e) => onCellHover(cell, e)}
             onMouseLeave={onCellLeave}
           >
-            {cell ? '🌿' : ''}
+            {getPlantEmoji(cell, season)}
           </div>
         ))
       )}
@@ -44,10 +61,12 @@ GardenGrid.propTypes = {
   onCellHover: PropTypes.func.isRequired,
   onCellLeave: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
+  season: PropTypes.string,
 };
 
 GardenGrid.defaultProps = {
   isLoading: false,
+  season: 'spring',
 };
 
 export default GardenGrid;
