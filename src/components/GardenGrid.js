@@ -2,10 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GardenGrid.css';
 
-const GardenGrid = ({ grid, onPlantPlacement, isLoading }) => {
+const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, isLoading }) => {
   if (isLoading) {
     return <div className="loading-state">Loading garden grid...</div>;
   }
+
+  const handleCellClick = (e, rowIndex, colIndex) => {
+    e.preventDefault();
+    
+    if (e.type === 'contextmenu' && grid[rowIndex][colIndex]) {
+      onPlantRemoval(rowIndex, colIndex);
+    } else if (e.type === 'click') {
+      onPlantPlacement(rowIndex, colIndex);
+    }
+  };
 
   return (
     <div className="garden-grid">
@@ -13,10 +23,13 @@ const GardenGrid = ({ grid, onPlantPlacement, isLoading }) => {
         row.map((cell, colIndex) => (
           <div
             key={`${rowIndex}-${colIndex}`}
-            className="grid-cell"
-            onClick={() => onPlantPlacement(rowIndex, colIndex)}
+            className={`grid-cell ${cell ? 'planted' : ''}`}
+            onClick={(e) => handleCellClick(e, rowIndex, colIndex)}
+            onContextMenu={(e) => handleCellClick(e, rowIndex, colIndex)}
+            onMouseEnter={(e) => onCellHover(cell, e)}
+            onMouseLeave={onCellLeave}
           >
-            {cell}
+            {cell ? '🌿' : ''}
           </div>
         ))
       )}
@@ -27,6 +40,7 @@ const GardenGrid = ({ grid, onPlantPlacement, isLoading }) => {
 GardenGrid.propTypes = {
   grid: PropTypes.arrayOf(PropTypes.array).isRequired,
   onPlantPlacement: PropTypes.func.isRequired,
+  onPlantRemoval: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
 };
 
