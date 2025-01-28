@@ -17,6 +17,8 @@ const App = () => {
   });
   const [lastRemoved, setLastRemoved] = useState(null);
   const [lastRemovedPosition, setLastRemovedPosition] = useState(null);
+  const [gardenName, setGardenName] = useState('My Tiny Garden');
+  const [isEditingName, setIsEditingName] = useState(false);
 
   useEffect(() => {
     const conditions = ['sunny', 'rainy', 'cloudy'];
@@ -103,7 +105,24 @@ const App = () => {
 
   return (
     <div className={`garden-app ${darkMode ? 'dark-mode' : ''} season-${season}`}>
-      <h1>🌿 My Tiny Garden 🌿</h1>
+      {isEditingName ? (
+        <div className="garden-name-edit">
+          <input
+            type="text"
+            value={gardenName}
+            onChange={(e) => setGardenName(e.target.value)}
+            className="garden-input"
+            autoFocus
+            onBlur={() => setIsEditingName(false)}
+            onKeyPress={(e) => e.key === 'Enter' && setIsEditingName(false)}
+          />
+        </div>
+      ) : (
+        <h1 onClick={() => setIsEditingName(true)} style={{ cursor: 'pointer' }}>
+          🌿 {gardenName} 🌿 
+          <span className="edit-hint">✏️</span>
+        </h1>
+      )}
       <button 
         className="garden-button"
         onClick={() => setDarkMode(!darkMode)}
