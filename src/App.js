@@ -21,6 +21,8 @@ const App = () => {
   const [gardenName, setGardenName] = useState('My Tiny Garden');
   const [isEditingName, setIsEditingName] = useState(false);
   const [gardenTheme, setGardenTheme] = useState('default');
+  const [isWateringMode, setIsWateringMode] = useState(false);
+  const [wateredPlants, setWateredPlants] = useState(new Set());
 
   useEffect(() => {
     const conditions = ['sunny', 'rainy', 'cloudy'];
@@ -116,6 +118,21 @@ const App = () => {
     });
   };
 
+  const handleWatering = (rowIndex, colIndex) => {
+    if (isWateringMode && grid[rowIndex][colIndex]) {
+      const plantKey = `${rowIndex}-${colIndex}`;
+      setWateredPlants(prev => new Set(prev).add(plantKey));
+      
+      setTimeout(() => {
+        setWateredPlants(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(plantKey);
+          return newSet;
+        });
+      }, 1000);
+    }
+  };
+
   return (
     <div className={`garden-app ${darkMode ? 'dark-mode' : ''} season-${season}`}>
       {isEditingName ? (
@@ -142,6 +159,13 @@ const App = () => {
         style={{ position: 'absolute', top: '20px', right: '20px' }}
       >
         {darkMode ? '☀️ Light' : '🌙 Dark'}
+      </button>
+      <button 
+        className="garden-button"
+        onClick={() => setIsWateringMode(!isWateringMode)}
+        style={{ position: 'absolute', top: '60px', right: '20px' }}
+      >
+        {isWateringMode ? '🌱 Plant' : '💧 Water'}
       </button>
       <div className="weather-widget">
         <span className="weather-icon">
@@ -218,6 +242,9 @@ const App = () => {
           }
         }}
         onCellLeave={() => setTooltip({ ...tooltip, show: false })}
+        isWateringMode={isWateringMode}
+        onWatering={handleWatering}
+        wateredPlants={wateredPlants}
       />
       {tooltip.show && (
         <div 

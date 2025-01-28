@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GardenGrid.css';
 
-const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCellLeave, isLoading, season }) => {
+const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCellLeave, isLoading, season, isWateringMode, onWatering, wateredPlants }) => {
   if (isLoading) {
     return <div className="loading-state">Loading garden grid...</div>;
   }
@@ -40,13 +40,24 @@ const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCel
         row.map((cell, colIndex) => (
           <div
             key={`${rowIndex}-${colIndex}`}
-            className={`plant-cell ${cell ? 'planted' : ''}`}
-            onClick={(e) => handleCellClick(e, rowIndex, colIndex)}
+            className={`plant-cell ${cell ? 'planted' : ''} ${
+              wateredPlants.has(`${rowIndex}-${colIndex}`) ? 'watered' : ''
+            }`}
+            onClick={(e) => {
+              if (isWateringMode) {
+                onWatering(rowIndex, colIndex);
+              } else {
+                handleCellClick(e, rowIndex, colIndex);
+              }
+            }}
             onContextMenu={(e) => handleCellClick(e, rowIndex, colIndex)}
             onMouseEnter={(e) => onCellHover(cell, e)}
             onMouseLeave={onCellLeave}
           >
-            {getPlantEmoji(cell, season)}
+            {cell ? getPlantEmoji(cell, season) : ''}
+            {wateredPlants.has(`${rowIndex}-${colIndex}`) && (
+              <span className="water-drop">��</span>
+            )}
           </div>
         ))
       )}
@@ -62,11 +73,16 @@ GardenGrid.propTypes = {
   onCellLeave: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   season: PropTypes.string,
+  isWateringMode: PropTypes.bool,
+  onWatering: PropTypes.func,
+  wateredPlants: PropTypes.instanceOf(Set),
 };
 
 GardenGrid.defaultProps = {
   isLoading: false,
   season: 'spring',
+  isWateringMode: false,
+  wateredPlants: new Set(),
 };
 
 export default GardenGrid;

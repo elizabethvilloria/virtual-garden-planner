@@ -75,3 +75,32 @@ h1:hover .edit-hint {
   background-position: 0 0, 10px 10px;
   background-size: 20px 20px;
 }
+
+.watering-mode {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><text x="0" y="20">🚿</text></svg>'), auto;
+}
+
+@keyframes waterDrop {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+}
+
+.water-drop {
+  position: absolute;
+  color: #4fc3f7;
+  animation: waterDrop 1s ease-in infinite;
+  pointer-events: none;
+}
+
+.plant-cell.watered {
+  animation: plantGrow 0.3s ease-out;
+}
