@@ -23,6 +23,7 @@ const App = () => {
   const [gardenTheme, setGardenTheme] = useState('default');
   const [isWateringMode, setIsWateringMode] = useState(false);
   const [wateredPlants, setWateredPlants] = useState(new Set());
+  const [plantGrowth, setPlantGrowth] = useState({});
 
   useEffect(() => {
     const conditions = ['sunny', 'rainy', 'cloudy'];
@@ -122,6 +123,11 @@ const App = () => {
     if (isWateringMode && grid[rowIndex][colIndex]) {
       const plantKey = `${rowIndex}-${colIndex}`;
       setWateredPlants(prev => new Set(prev).add(plantKey));
+      
+      setPlantGrowth(prev => ({
+        ...prev,
+        [plantKey]: (prev[plantKey] || 0) + 1
+      }));
       
       setTimeout(() => {
         setWateredPlants(prev => {
@@ -245,6 +251,7 @@ const App = () => {
         isWateringMode={isWateringMode}
         onWatering={handleWatering}
         wateredPlants={wateredPlants}
+        plantGrowth={plantGrowth}
       />
       {tooltip.show && (
         <div 

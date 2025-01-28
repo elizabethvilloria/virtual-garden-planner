@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GardenGrid.css';
 
-const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCellLeave, isLoading, season, isWateringMode, onWatering, wateredPlants }) => {
+const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCellLeave, isLoading, season, isWateringMode, onWatering, wateredPlants, plantGrowth }) => {
   if (isLoading) {
     return <div className="loading-state">Loading garden grid...</div>;
   }
@@ -17,18 +17,26 @@ const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCel
     }
   };
 
-  const getPlantEmoji = (cell, season) => {
+  const getPlantEmoji = (cell, season, growthStage = 0) => {
     if (!cell) return '';
+    
+    // Growth stages: 0-2 (seedling), 3-5 (growing), 6+ (mature)
+    const stage = growthStage < 3 ? 'seedling' : 
+                  growthStage < 6 ? 'growing' : 'mature';
     
     switch(season) {
       case 'spring':
-        return '🌱';
+        return stage === 'seedling' ? '🌱' :
+               stage === 'growing' ? '🌿' : '🌸';
       case 'summer':
-        return '🌿';
+        return stage === 'seedling' ? '🌱' :
+               stage === 'growing' ? '🌿' : '🌺';
       case 'autumn':
-        return '🍂';
+        return stage === 'seedling' ? '🌱' :
+               stage === 'growing' ? '🌿' : '🍂';
       case 'winter':
-        return '❄️';
+        return stage === 'seedling' ? '🌱' :
+               stage === 'growing' ? '❄️' : '☃️';
       default:
         return '🌿';
     }
@@ -54,9 +62,13 @@ const GardenGrid = ({ grid, onPlantPlacement, onPlantRemoval, onCellHover, onCel
             onMouseEnter={(e) => onCellHover(cell, e)}
             onMouseLeave={onCellLeave}
           >
-            {cell ? getPlantEmoji(cell, season) : ''}
+            {cell ? getPlantEmoji(
+              cell, 
+              season, 
+              plantGrowth[`${rowIndex}-${colIndex}`] || 0
+            ) : ''}
             {wateredPlants.has(`${rowIndex}-${colIndex}`) && (
-              <span className="water-drop">��</span>
+              <span className="water-drop"></span>
             )}
           </div>
         ))
@@ -76,6 +88,7 @@ GardenGrid.propTypes = {
   isWateringMode: PropTypes.bool,
   onWatering: PropTypes.func,
   wateredPlants: PropTypes.instanceOf(Set),
+  plantGrowth: PropTypes.object,
 };
 
 GardenGrid.defaultProps = {
@@ -83,6 +96,7 @@ GardenGrid.defaultProps = {
   season: 'spring',
   isWateringMode: false,
   wateredPlants: new Set(),
+  plantGrowth: {},
 };
 
 export default GardenGrid;
