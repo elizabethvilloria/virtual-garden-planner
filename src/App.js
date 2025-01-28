@@ -4,8 +4,9 @@ import PlantSelector from './components/PlantSelector';
 
 const App = () => {
   const [selectedPlant, setSelectedPlant] = useState(null);
+  const [gridSize, setGridSize] = useState(5);
   const [grid, setGrid] = useState(
-    Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => null))
+    Array.from({ length: gridSize }, () => Array.from({ length: gridSize }, () => null))
   );
   const [darkMode, setDarkMode] = useState(false);
   const [tooltip, setTooltip] = useState({ show: false, text: '', x: 0, y: 0 });
@@ -103,6 +104,17 @@ const App = () => {
     }
   };
 
+  const handleGridResize = (newSize) => {
+    setGridSize(newSize);
+    setGrid(Array.from({ length: newSize }, () => 
+      Array.from({ length: newSize }, () => null)
+    ));
+    setPlantStats({
+      totalPlants: 0,
+      plantTypes: {}
+    });
+  };
+
   return (
     <div className={`garden-app ${darkMode ? 'dark-mode' : ''} season-${season}`}>
       {isEditingName ? (
@@ -139,6 +151,19 @@ const App = () => {
           {weather.temp}°C - {weather.condition === 'sunny' ? 'Water your plants!' :
            weather.condition === 'rainy' ? 'Perfect growing weather!' : 'Moderate watering needed'}
         </span>
+      </div>
+      <div className="grid-controls">
+        <label>Garden Size: </label>
+        <select 
+          value={gridSize} 
+          onChange={(e) => handleGridResize(Number(e.target.value))}
+          className="garden-select"
+        >
+          <option value="3">3 x 3</option>
+          <option value="5">5 x 5</option>
+          <option value="7">7 x 7</option>
+          <option value="9">9 x 9</option>
+        </select>
       </div>
       <PlantSelector onSelectPlant={handleSelectPlant} />
       <div className="selected-plant">
