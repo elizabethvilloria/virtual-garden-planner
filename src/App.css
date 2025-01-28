@@ -51,3 +51,27 @@ h1:hover .edit-hint {
   color: white;
   border-color: #45a049;
 }
+
+.garden-app.theme-default {
+  background: #f8f9fa;
+}
+
+.garden-app.theme-zen {
+  background: #f5f5f5;
+  background-image: linear-gradient(rgba(255,255,255,.5) 2px, transparent 2px),
+                    linear-gradient(90deg, rgba(255,255,255,.5) 2px, transparent 2px);
+  background-size: 50px 50px;
+}
+
+.garden-app.theme-tropical {
+  background: linear-gradient(to bottom right, #fff3e0, #e8f5e9);
+}
+
+.garden-app.theme-cottage {
+  background: #fff;
+  background-image: 
+    radial-gradient(#e8f5e9 20%, transparent 20%),
+    radial-gradient(#f1f8e9 20%, transparent 20%);
+  background-position: 0 0, 10px 10px;
+  background-size: 20px 20px;
+}

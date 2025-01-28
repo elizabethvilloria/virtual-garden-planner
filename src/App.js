@@ -20,6 +20,7 @@ const App = () => {
   const [lastRemovedPosition, setLastRemovedPosition] = useState(null);
   const [gardenName, setGardenName] = useState('My Tiny Garden');
   const [isEditingName, setIsEditingName] = useState(false);
+  const [gardenTheme, setGardenTheme] = useState('default');
 
   useEffect(() => {
     const conditions = ['sunny', 'rainy', 'cloudy'];
@@ -163,6 +164,17 @@ const App = () => {
           <option value="5">5 x 5</option>
           <option value="7">7 x 7</option>
           <option value="9">9 x 9</option>
+        </select>
+        <label>Theme: </label>
+        <select 
+          value={gardenTheme} 
+          onChange={(e) => setGardenTheme(e.target.value)}
+          className="garden-select"
+        >
+          <option value="default">Default</option>
+          <option value="zen">Zen Garden</option>
+          <option value="tropical">Tropical</option>
+          <option value="cottage">Cottage</option>
         </select>
       </div>
       <PlantSelector onSelectPlant={handleSelectPlant} />
