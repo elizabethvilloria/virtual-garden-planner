@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './PlantCard.css';
 
 const PlantCard = ({ plant }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const {
     name,
     scientificName,
@@ -16,7 +17,13 @@ const PlantCard = ({ plant }) => {
   return (
     <div className="plant-card">
       <div className="plant-image">
-        <img src={imageUrl} alt={name} />
+        {!imageLoaded && <div className="loading-placeholder">Loading...</div>}
+        <img 
+          src={imageUrl} 
+          alt={name} 
+          onLoad={() => setImageLoaded(true)}
+          style={{ display: imageLoaded ? 'block' : 'none' }}
+        />
       </div>
       <div className="plant-info">
         <h3>{name}</h3>
