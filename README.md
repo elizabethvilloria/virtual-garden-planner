@@ -1,3 +1,64 @@
+# Virtual Garden Planner
+
+A React-based web application that helps users plan and visualize their garden layouts virtually. This tool allows gardeners to design their perfect garden space by placing plants, structures, and other garden elements in a virtual environment.
+
+## Features
+
+- Interactive garden layout designer
+- Plant database with growing information
+- Seasonal planting guides
+- Space optimization tools
+- Export and share garden designs
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14.0.0 or higher)
+- npm (v6.0.0 or higher)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/virtual-garden-planner.git
+```
+
+2. Install dependencies:
+```bash
+cd virtual-garden-planner
+npm install
+```
+
+3. Start the development server:
+```bash
+npm start
+```
+
+The application will open in your default browser at [http://localhost:3000](http://localhost:3000).
+
+## Available Scripts
+
+### `npm start`
+
+Runs the app in development mode.
+
+### `npm test`
+
+Launches the test runner in interactive watch mode.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
