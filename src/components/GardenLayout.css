@@ -1,0 +1,37 @@
+.garden-layout {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background-color: #e0e0e0;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.grid-row {
+  display: flex;
+  gap: 1px;
+}
+
+.grid-cell {
+  width: 50px;
+  height: 50px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.grid-cell:hover {
+  background-color: #e8f5e9;
+}
+
+h2 {
+  color: #2e7d32;
+  margin-bottom: 20px;
+  text-align: center;
+} 
