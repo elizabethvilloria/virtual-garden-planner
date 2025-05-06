@@ -1,0 +1,54 @@
+.plant-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+  max-width: 300px;
+}
+
+.plant-card:hover {
+  transform: translateY(-4px);
+}
+
+.plant-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.plant-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.plant-info {
+  padding: 16px;
+}
+
+.plant-info h3 {
+  margin: 0;
+  color: #2e7d32;
+  font-size: 1.25rem;
+}
+
+.scientific-name {
+  color: #666;
+  font-style: italic;
+  margin: 4px 0 12px;
+}
+
+.plant-details {
+  display: grid;
+  gap: 8px;
+}
+
+.plant-details p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.plant-details strong {
+  color: #555;
+} 
